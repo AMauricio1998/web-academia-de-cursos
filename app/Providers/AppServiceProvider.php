@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Providers;
+
+use App\Models\User;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        \Blade::if('teacher', function() {
+            if (auth()->check()) {
+                return auth()->user()->isTeacher();
+            }
+            return false;
+        });
+    }
+}
